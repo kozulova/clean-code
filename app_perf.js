@@ -130,4 +130,4 @@ async function loadProductsPerformant() {
   console.timeEnd("Performant Load Time");
 }
 
-loadProductsClean();
+loadProductsPerformant();
