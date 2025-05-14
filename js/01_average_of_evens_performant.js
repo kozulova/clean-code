@@ -27,6 +27,7 @@ console.timeEnd("Performant Average of Evens");
 console.log(resultPerformant);
 
 /* 
+
 Uses a single loop, no intermediate arrays.
 
 Has better memory efficiency.
