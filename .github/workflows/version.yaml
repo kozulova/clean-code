@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   version:
+    # ❗ захист від нескінченного циклу
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
     runs-on: ubuntu-latest
@@ -22,17 +23,24 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Checkout
+      - name: Checkout latest main
         uses: actions/checkout@v4
         with:
           token: ${{ steps.app-token.outputs.token }}
+          ref: main
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Bump version in package.json
+      # ❗ важливо — підтягнути найсвіжіший стан
+      - name: Sync with remote
+        run: |
+          git pull origin main --rebase
+
+      - name: Bump version
         run: |
           npm version patch --no-git-tag-version
 
@@ -43,4 +51,5 @@ jobs:
 
           git add package.json package-lock.json || true
           git commit -m "chore: bump version [skip ci]" || echo "No changes"
-          git push
+
+          git push origin main
