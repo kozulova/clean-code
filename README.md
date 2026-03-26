@@ -2,6 +2,7 @@
 
 This repository contains a set of JavaScript code examples that compare **clean**, **performant**, and **balanced** coding styles for common programming tasks. The goal is to explore the trade-offs between **readability**, **testability**, and **performance**.
 
+
 ---
 
 ## 📁 Contents
